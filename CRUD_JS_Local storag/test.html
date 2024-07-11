@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<style>
+  label {
+  display: inline-block;
+  font-size: 16px;
+  font-family: Arial, Helvetica, sans-serif;
+  width: 110px;
+  }
+  input,
+  select {
+  width: 180px;
+  height: 30px; 
+  font-size: 16px;
+  font-family: Arial, Helvetica, sans-serif;
+  }
+  button {
+  height: 30px;
+  width: 70px;
+  }
+  </style>
+<body>
+<label> first name</label>
+<input type="text" id="FnameInp"> 
+<br>
+<br>
+<label> last name</label>
+<input type="text" id="LnameInp"> 
+<br>
+<br>
+<label>Department</label>
+<select id="DeptInp">
+<option value="Development" >Development</option>
+<option value="Testing">Testing</option>
+<option value="Management" >Management</option>
+<option value="Administration">Administration</option>
+</select>
+<br><br>
+<label>Can Swim</label>
+<select id="SwimInp">
+<option value="yes">Yes</option>
+<option value="no">No</option>
+</select>
+<br><br>
+<label>CNIC No</label>
+<input type="number" id="Cnic Inp">
+<br><br>
+<button id="AddBtn">Add</button>
+<button id="AddBtn">Retrieve</button>
+<button id="AddBtn">Update</button>
+<button id="AddBtn">Delete</button>
+
+<br>
+<br>
+
+<script type="module">
+  // Import the functions you need from the SDKs you need
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+  import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-analytics.js";
+  // TODO: Add SDKs for Firebase products that you want to use
+  //--- https://firebase.google.com/docs/web/setup#available-libraries
+
+  //--- Your web app's Firebase configuration
+  // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+  const firebaseConfig = {
+    apiKey: "AIzaSyAzZVUz_YtsR9ZSoUDMmAQv59kZ3cMpbKI",
+    authDomain: "hmhm-62139.firebaseapp.com",
+    databaseURL: "https://hmhm-62139-default-rtdb.firebaseio.com",
+    projectId: "hmhm-62139",
+    storageBucket: "hmhm-62139.appspot.com",
+    messagingSenderId: "90839785870",
+    appId: "1:90839785870:web:2331db63546662495584df",
+    measurementId: "G-F1R5TSTNSV",
+  };
+
+  // Initialize Firebase
+  const app = initializeApp(firebaseConfig);
+  const analytics = getAnalytics(app);
+  import {
+    getdatabase,
+    ref,
+    child,
+    get,
+    set,
+    remove,
+  } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
+  const db = getdatabase();
+
+
+
+  let FnameInp = document.getElementById('FnameInp');
+let LnameInp = document.getElementById('LnameInp');
+let DeptInp = document.getElementById('DeptInp');
+let SwimInp = document.getElementById('SwimInp');
+let CnicInp = document.getElementById('Cnic Inp');
+let AddBtn = document.getElementById('AddBtn');
+let RetBtn = document.getElementById('RetBtn');
+let UpdBtn = document.getElementById('UpdBtn');
+let DelBtn = document.getElementById('DelBtn');
+
+
+function AddData(){
+set (ref (db, 'EmployeeSet/' + CnicInp.value), {
+nameofemployee: {firstname: FnameInp.value, lastname: LnameInp.value},
+department: DeptInp.value,
+canswim: (SwimInp.value == "yes"),
+cnic: Number (CnicInp.value)
+})
+.then(()=>{
+alert("Data Added Successfully");
+})
+.catch((error)=>{
+alert("Unsuccessful");
+console.log(error);
+})
+}
+function AddData(){
+set (ref (db, 'EmployeeSet/' + CnicInp.value), {
+nameofemployee: {firstname: FnameInp.value, lastname: LnameInp.value},
+department: DeptInp.value,
+canswim: (SwimInp.value == "yes"),
+cnic: Number (CnicInp.value)
+})
+.then(()=>{
+alert("Data Added Successfully");
+})
+.catch((error)=>{
+alert("Unsuccessful");
+console.log(error);
+})
+}
+
+
+
+</script>
+
+
+
+</script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+<!-- <!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CRUD Application With Local Storage</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="container">
+      <h1>CRUD Application With Local Storage</h1>
+      <form id="userForm">
+        <div class="input-group">
+          <label for="name">Name</label>
+          <input type="text" id="name" required />
+        </div>
+        <br />
+        <div class="input-group">
+          <label for="age">Age</label>
+          <input type="number" id="age" required />
+        </div>
+        <br />
+        <div class="input-group">
+          <label for="address">Address</label>
+          <input type="text" id="address" required />
+        </div>
+        <br />
+        <div class="input-group">
+          <label for="email">Email</label>
+          <input type="email" id="email" required />
+        </div>
+        <button type="submit" id="updateButton">Update</button>
+      </form>
+      <table id="userTable">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Age</th>
+            <th>Address</th>
+            <th>Email</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- Dynamic Content -->
